@@ -10,17 +10,21 @@ public class FileUtil {
         StringBuilder sql = new StringBuilder();
         try {
             //the file to be opened for reading
-            FileInputStream fis = new FileInputStream("./" + fileName);
+            FileInputStream fis = new FileInputStream("./src/main/" + fileName);
 
             //file to be scanned
             Scanner sc = new Scanner(fis);
 
             //returns true if there is another line to read
             while (sc.hasNextLine()) {
-                sql.append(sc.nextLine() + " ");
+                String line = sc.nextLine();
+                if(!line.contains("--")) {
+                    sql.append(line + " ");
+                }
             }
             sc.close();     //closes the scanner
         } catch (IOException e) {
+            System.out.println("some error occurred while reading the sql file.");
         }
 
         return sql.toString();

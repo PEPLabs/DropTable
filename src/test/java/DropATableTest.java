@@ -1,5 +1,5 @@
-
 import Util.ConnectionUtil;
+import Util.FileUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,9 +8,9 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DropATableTest {
-    private DropATable dropATable = new DropATable();
 
     /**
      * The before annotation runs before every test so that way we drop the tables to avoid conflicts in future tests
@@ -23,7 +23,7 @@ public class DropATableTest {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("failed creating table");
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -35,11 +35,13 @@ public class DropATableTest {
 
         try {
             Connection connection = ConnectionUtil.getConnection();
-            String sql = "DROP TABLE song;";
+            String sql = "DROP TABLE IF EXISTS song;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.executeUpdate();
 
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -49,9 +51,16 @@ public class DropATableTest {
     @Test
     public void dropTableTest(){
         try {
-            dropATable.problem1();
+            String sql = FileUtil.parseSQLFile("lab1.sql");
+            try {
+                Connection connection = ConnectionUtil.getConnection();
+                Statement s = connection.createStatement();
+                s.executeUpdate(sql);
+            } catch (SQLException e) {
+                System.out.println("problem1: " + e.getMessage() + '\n');
+            }
             Connection connection = ConnectionUtil.getConnection();
-            String sql = "INSERT INTO song (Title, Artist) VALUES ('Let it be', 'Beatles');";
+            String sql2 = "INSERT INTO song (Title, Artist) VALUES ('Let it be', 'Beatles');";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.executeUpdate();
             System.out.println("problem1: Table 'song' was not dropped.");

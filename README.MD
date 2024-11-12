@@ -1,25 +1,12 @@
-# Background
-SQL sublanguage: DDL (Data Definition Language)
- 
-In the last activity we learned how to create tables in SQL. In this activity we are going to learn how to drop a table from our database.
- 
-The syntax for dropping a table is as follows:
-```roomsql
-DROP TABLE table_name;
+# Drop table lab
+This lab covers how to drop tables in a database.
+# Files to modify
+You should modify only the lab1.sql file, found under the src/main folder.
+Instructions are provided in the lab1.sql file.
+When you write your SQL statement, you should write it below the provided instructions as follows:
+```sql
+-- sample comments
+-- TODO: write a sql statement below
+select * from table;
 ```
-
- Additional reference material if needed: https://www.w3schools.com/sql/sql_drop_db.asp
-
-- - - 
-
-# Lab
-
-## Problem 1
-song table
-| title     | artist  |    	    
-|-----------|---------|
-| Let it be | Beatles |          
-| Hotel California   | Eagles |
-| Kashmir   | Led Zeppelin |
-
-#### Problem 1: In the "problem1.sql", drop the table "song"
+with `select * from table` representing your answer in the lab1.sql file.
